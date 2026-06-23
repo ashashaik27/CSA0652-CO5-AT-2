@@ -1,0 +1,41 @@
+def subset_sum(arr, target):
+
+    subset = []
+
+    def backtrack(index, current_sum, remaining_sum):
+
+        if current_sum == target:
+            print("Subset Found:", subset)
+            return True
+
+        if current_sum > target:
+            return False
+
+        if current_sum + remaining_sum < target:
+            return False
+
+        for i in range(index, len(arr)):
+
+            subset.append(arr[i])
+
+            if backtrack(i + 1,
+                         current_sum + arr[i],
+                         remaining_sum - arr[i]):
+                return True
+
+            subset.pop()
+
+            remaining_sum -= arr[i]
+
+        return False
+
+    total = sum(arr)
+
+    if not backtrack(0, 0, total):
+        print("No Subset Exists")
+
+
+arr = [2, 4, 6, 8, 10]
+target = 14
+
+subset_sum(arr, target)

@@ -1,0 +1,35 @@
+def generate_combinations(arr, k):
+
+    result = []
+
+    def backtrack(index, combination):
+
+        if len(combination) == k:
+            result.append(combination[:])
+            return
+
+        if len(arr) - index < k - len(combination):
+            return
+
+        for i in range(index, len(arr)):
+
+            if not combination or arr[i] - combination[-1] > 1:
+
+                combination.append(arr[i])
+
+                backtrack(i + 1, combination)
+
+                combination.pop()
+
+    backtrack(0, [])
+
+    print("Valid Combinations:")
+
+    for combo in result:
+        print(combo)
+
+
+arr = [1, 2, 3, 4, 5]
+k = 3
+
+generate_combinations(arr, k)
